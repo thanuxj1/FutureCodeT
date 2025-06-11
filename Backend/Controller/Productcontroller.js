@@ -1,80 +1,91 @@
-const User = require("../Model/Productmodel");
+const Product = require("../Model/Productmodel");
 
-// GET all users
+// GET all products
 const getAllProducts = async (req, res) => {
   try {
-    const users = await User.find();
-    if (!users.length) return res.status(404).json({ message: "No product found" });
-    res.status(200).json({ users });
+    const products = await Product.find();
+    if (!products.length) {
+      return res.status(404).json({ message: "No products found" });
+    }
+    res.status(200).json(products); // ✅ Changed here
   } catch (err) {
-    res.status(500).json({ message: "Error", error: err });
+    res.status(500).json({ message: "Failed to fetch products", error: err.message });
   }
 };
 
-// POST create user
-const addProducts = async (req, res) => {
+
+// POST create a product
+const addProduct = async (req, res) => {
   const { name, price, quantity } = req.body;
   try {
-    const newUser = await User.create({ name, price, quantity });
-    res.status(201).json({ user: newUser });
+    const newProduct = await Product.create({ name, price, quantity });
+    res.status(201).json({ product: newProduct });
   } catch (err) {
-    res.status(500).json({ message: "Create failed", error: err });
+    res.status(500).json({ message: "Failed to create product", error: err.message });
   }
 };
 
-// PUT update user
+// PUT update a product
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { name, price, quantity } = req.body;
   try {
-    const updated = await User.findByIdAndUpdate(id, { name, price, quantity }, { new: true });
-    if (!updated) return res.status(404).json({ message: "Product not found" });
-    res.status(200).json({ user: updated });
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      { name, price, quantity },
+      { new: true }
+    );
+    if (!updatedProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json({ product: updatedProduct });
   } catch (err) {
-    res.status(500).json({ message: "Update failed", error: err });
+    res.status(500).json({ message: "Failed to update product", error: err.message });
   }
 };
 
-// DELETE single user
+// DELETE a single product
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
   try {
-    const deleted = await User.findByIdAndDelete(id);
-    if (!deleted) return res.status(404).json({ message: "Prodcut not found" });
-    res.status(200).json({ message: "Product deleted" });
+    const deletedProduct = await Product.findByIdAndDelete(id);
+    if (!deletedProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json({ message: "Product deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: "Delete failed", error: err });
+    res.status(500).json({ message: "Failed to delete product", error: err.message });
   }
 };
 
-// DELETE all users
+// DELETE all products
 const deleteAllProducts = async (req, res) => {
   try {
-    await User.deleteMany({});
-    res.status(200).json({ message: "All products deleted" });
+    await Product.deleteMany({});
+    res.status(200).json({ message: "All products deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: "Failed to delete all", error: err });
+    res.status(500).json({ message: "Failed to delete all products", error: err.message });
   }
 };
 
-// SEARCH users by name
+// SEARCH products by name
 const searchProduct = async (req, res) => {
   const { name } = req.query;
   try {
-    const users = await User.find({
-      name: { $regex: name, $options: 'i' } // Case-insensitive search
+    const products = await Product.find({
+      name: { $regex: name, $options: "i" }, // Case-insensitive partial match
     });
-    res.status(200).json({ users });
+    res.status(200).json({ products });
   } catch (err) {
-    res.status(500).json({ message: "Search failed", error: err });
+    res.status(500).json({ message: "Failed to search products", error: err.message });
   }
 };
 
 module.exports = {
   getAllProducts,
-  addProducts,
+  addProduct,
   updateProduct,
   deleteProduct,
   deleteAllProducts,
-  searchProduct // Add this to exports
+  searchProduct,
 };

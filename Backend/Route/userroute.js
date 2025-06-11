@@ -2,14 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 // Import controller (verify path is correct)
-const userController = require("../Controller/usercontroller");
+const Productcontroller = require("../Controller/Productcontroller");
+const Usercontroller = require("../Controller/usercontroller");
 
 // Routes
-router.get("/", userController.getAllUsers);
-router.post("/", userController.addUser);
-router.put("/:id", userController.updateUser);
-router.delete("/:id", userController.deleteUser);
-router.delete("/", userController.deleteAllUsers);
-router.get("/search", userController.searchUsers);
+router.get("/", Productcontroller.getAllProducts);
+router.post("/", Productcontroller.addProducts);
+router.put("/:id", Productcontroller.updateProduct);
+router.delete("/:id", Productcontroller.deleteProduct);
+router.delete("/", Productcontroller.deleteAllProducts);
+router.get("/search",Productcontroller.searchProduct);
+router.post("/signup", Usercontroller.registerUser); // You need to create this function
+router.post("/login", Usercontroller.loginUser);
 
 module.exports = router;

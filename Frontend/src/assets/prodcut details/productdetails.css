@@ -1,39 +1,77 @@
+/* ProductDetails - Styled like login, now with compact card layout */
+
 .product-details {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5vh;
 }
 
 .product-details h1 {
-  color: #2c3e50;
-  text-align: center;
+  font-size: 28px;
+  font-weight: 500;
+  color: #333;
   margin-bottom: 30px;
-  font-size: 2rem;
-  border-bottom: 2px solid #3498db;
-  padding-bottom: 10px;
 }
 
-.no-products {
-  text-align: center;
-  color: #7f8c8d;
-  font-size: 1.2rem;
-  margin-top: 50px;
-}
-
+/* Responsive, compact grid */
 .products-list {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 0 16px;
+  justify-content: center;
+  align-items: stretch;
 }
 
-@media (max-width: 768px) {
-  .products-list {
-    grid-template-columns: 1fr;
+/* Common message styles */
+.loading,
+.error-message,
+.no-products {
+  font-size: 16px;
+  color: #666;
+  margin-top: 30px;
+  text-align: center;
+}
+
+/* Spinner */
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 4px solid #ddd;
+  border-top: 4px solid #555;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  .product-details h1 {
-    font-size: 1.5rem;
-  }
+}
+
+/* Retry button */
+.retry-button {
+  padding: 12px 24px;
+  background-color: #333;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.retry-button:hover {
+  background-color: #222;
+}
+
+.retry-button:active {
+  background-color: #111;
 }

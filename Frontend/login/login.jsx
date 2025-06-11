@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // ✅ Step 1
+import "../login/login.css";
 
 function Login() {
   const [form, setForm] = useState({
@@ -7,13 +8,14 @@ function Login() {
     password: ''
   });
 
+  const navigate = useNavigate(); // ✅ Step 2
+
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     try {
       const res = await fetch('http://localhost:5000/users/login', {
         method: 'POST',
@@ -24,7 +26,7 @@ function Login() {
       const data = await res.json();
       if (data.success) {
         alert('Login successful');
-        // Optionally redirect or store user data
+        navigate('/add-product'); // ✅ Step 3: Redirect to Add Product page
       } else {
         alert(data.message);
       }
@@ -35,11 +37,15 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        <label>Email</label>
         <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        
+        <label>Password</label>
         <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        
         <button type="submit">Login</button>
         <p>Don't have an account? <Link to="/register">Register here</Link></p>
       </form>

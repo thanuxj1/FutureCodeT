@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // ✅ Import useNavigate
+import '../login/login.css';
 
 function Signup() {
   const [form, setForm] = useState({
@@ -6,6 +8,8 @@ function Signup() {
     email: '',
     password: ''
   });
+
+  const navigate = useNavigate(); // ✅ Hook to redirect
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,7 +26,13 @@ function Signup() {
       });
 
       const data = await res.json();
-      alert(data.message);
+
+      if (data.success) {
+        alert('Registration successful!');
+        navigate('/mainhome'); // ✅ Redirect to login page
+      } else {
+        alert(data.message || 'Registration failed');
+      }
     } catch (error) {
       console.error('Signup error:', error);
       alert('Something went wrong');
@@ -30,13 +40,40 @@ function Signup() {
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="fullName" placeholder="Full Name" onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>Signup</h2>
+        <label htmlFor="fullName">Full Name</label>
+        <input
+          type="text"
+          name="fullName"
+          id="fullName"
+          placeholder="Enter full name"
+          onChange={handleChange}
+          required
+        />
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Enter email"
+          onChange={handleChange}
+          required
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter password"
+          onChange={handleChange}
+          required
+        />
         <button type="submit">Register</button>
+        <p>
+          Already have an account? <Link to="/mainhome">Login here</Link>
+        </p>
       </form>
     </div>
   );

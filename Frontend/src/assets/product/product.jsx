@@ -16,7 +16,7 @@ function Product({ product, onDelete, onUpdate }) {
   const saveEdit = async () => {
     try {
       const res = await axios.put(`${URL}/${_id}`, formData);
-      onUpdate(res.data);
+      onUpdate(res.data.product); // ✅ just send the actual product data
       setEditMode(false);
     } catch (err) {
       console.error("Edit failed", err);

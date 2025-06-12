@@ -1,4 +1,4 @@
-# FuturecODET (simple crud for internship)
+# FutureCodeT (simple crud for internship)
 
 A simple MERN-stack web application that allows users to register, log in, and manage products (add, view, etc).
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // ✅ Import useNavigate
+import { Link, useNavigate } from 'react-router-dom'; 
 import '../login/login.css';
 
 function Signup() {
@@ -9,7 +9,7 @@ function Signup() {
     password: ''
   });
 
-  const navigate = useNavigate(); // ✅ Hook to redirect
+  const navigate = useNavigate(); //Hook to redirect
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,7 +29,7 @@ function Signup() {
 
       if (data.success) {
         alert('Registration successful!');
-        navigate('/mainhome'); // ✅ Redirect to login page
+        navigate('/mainhome'); // Redirect to login page
       } else {
         alert(data.message || 'Registration failed');
       }

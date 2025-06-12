@@ -10,7 +10,6 @@ function Nav() {
   const closeSidebar = () => setIsOpen(false);
 
   const handleLogout = () => {
-    // Clear auth logic here if needed
     navigate("/mainhome");
     closeSidebar();
   };

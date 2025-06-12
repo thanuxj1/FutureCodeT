@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // ✅ Step 1
+import { Link, useNavigate } from 'react-router-dom'; 
 import "../login/login.css";
 
 function Login() {
@@ -8,7 +8,7 @@ function Login() {
     password: ''
   });
 
-  const navigate = useNavigate(); // ✅ Step 2
+  const navigate = useNavigate(); // redireting
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,7 +26,7 @@ function Login() {
       const data = await res.json();
       if (data.success) {
         alert('Login successful');
-        navigate('/add-product'); // ✅ Step 3: Redirect to Add Product page
+        navigate('/add-product'); // Redirect to Add Product page
       } else {
         alert(data.message);
       }

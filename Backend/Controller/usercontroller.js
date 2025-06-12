@@ -1,7 +1,7 @@
 const User = require("../Model/usermodel");
 const bcrypt = require("bcrypt");
 
-// ✅ Define registerUser
+// User register
 const registerUser = async (req, res) => {
   const { fullName, email, password } = req.body;
   try {
@@ -18,7 +18,7 @@ const registerUser = async (req, res) => {
   }
 };
 
-// ✅ Define loginUser
+// Login
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
